@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let options = ['Rock', 'Paper', 'Scissors'];
+        let compScore = 0;
+        let playerScore = 0;
+
+        //selects random weapon for computer
+        function computerPlay() {
+            let compResult = options[Math.floor(Math.random() * options.length)];
+            return compResult;
+        }
+        
+        //determines who is the winner
+        function playRound(playerSelection, computerSelection){
+
+            let player1Char = playerSelection.slice(0,1);
+            let playerRest = playerSelection.slice(1, playerSelection.length);
+
+            let playerSelection2 = playerSelection.replace(player1Char, player1Char.toUpperCase());
+            let playerSelectionFinal = playerSelection2.replace(playerRest, playerRest.toLowerCase());
+            
+            //when tied
+            if (playerSelectionFinal === computerSelection){
+                return "It's a tie!";
+            
+            //when player selects rock
+            } else if (playerSelectionFinal === "Rock"){
+                if (computerSelection === "Scissors"){
+                    return "you win!";
+                }
+                else if(computerSelection === "Paper"){
+                    return "I win!";
+                }
+                
+            //when player selects paper
+            } else if (playerSelectionFinal === "Paper"){
+                if (computerSelection === "Rock"){
+                    return "you win!";
+                }
+                else if(computerSelection === "Scissors"){
+                    return "I win!";
+                }   
+
+            //when player selects scissors
+            } else if (playerSelectionFinal === "Scissors"){
+                if (computerSelection === "Paper"){
+                    return "you win!";
+                }
+                else if(computerSelection === "Rock"){
+                    return "I win!";
+                } 
+            }
+        }
+
+        //plays game for 5 rounds
+        for (let i = 0; i < 5; i++){
+            let computerSelection = computerPlay();
+            let playerSelection = window.prompt("what is your weapon");
+            playRound(playerSelection, computerSelection);
+
+            //score keeper
+            if (playRound(playerSelection, computerSelection) === "you win!"){
+                playerScore += 1;
+            } else if (playRound(playerSelection, computerSelection) === "I win!"){
+                compScore += 1;
+            }
+            console.log("I defended your attack with: " + computerSelection);
+            console.log(playRound(playerSelection, computerSelection));
+            console.log( "your score: " + playerScore);
+            console.log( "my score: " + compScore);
+        }
+        
+        //final result
+        console.log ("Here is the final result of our battles:")
+        if (playerScore > compScore){
+            console.log("you are the ultimate winner! Congratulations");
+        } else if (playerScore < compScore){
+            console.log("I win lol");
+        } else {
+            console.log("its a tie bitch");
+        }
+
+
+
+        // console.log(computerSelection);
+
+        // console.log(playRound(playerSelection, computerSelection));
+
+    </script>
+</body>
+</html>
