@@ -109,10 +109,11 @@
                     finalResult.classList.add('finalResult');
             
                     defended.textContent = "I defended with: " + computerSelection;
-                    result.textContent = "This is the result: " + round;
+                    result.textContent = "result of the round: " + round;
+                    compScoreD.textContent = "My Score is: " + compScore;
+                    playerScoreD.textContent = "Your Score is: " + playerScore;
 
                     //final result
-
                     if (compScore === 5 || playerScore === 5){
                         if (playerScore > compScore){
                             finalResult.textContent = "you are the ultimate winner! Congratulations! You beat me by " + (playerScore - compScore) + " points";
@@ -123,8 +124,6 @@
                         }
                     }
                     
-                    compScoreD.textContent = "My Score is: " + compScore;
-                    playerScoreD.textContent = "Your Score is: " + playerScore;
 
                     div.appendChild(defended);
                     div.appendChild(result);
