@@ -7,10 +7,20 @@
     <title>Document</title>
 </head>
 <body>
+
+    <button id="1">Rock</button>
+    <button id="2">Paper</button>
+    <button id="3">Scissors</button>
+    <div></div>
+
+
     <script>
         let options = ['Rock', 'Paper', 'Scissors'];
         let compScore = 0;
         let playerScore = 0;
+
+        let computerSelection = computerPlay();
+
 
         //selects random weapon for computer
         function computerPlay() {
@@ -21,18 +31,18 @@
         //determines who is the winner
         function playRound(playerSelection, computerSelection){
 
-            let player1Char = playerSelection.slice(0,1);
-            let playerRest = playerSelection.slice(1, playerSelection.length);
+            // let player1Char = playerSelection.slice(0,1);
+            // let playerRest = playerSelection.slice(1, playerSelection.length);
 
-            let playerSelection2 = playerSelection.replace(player1Char, player1Char.toUpperCase());
-            let playerSelectionFinal = playerSelection2.replace(playerRest, playerRest.toLowerCase());
+            // let playerSelection2 = playerSelection.replace(player1Char, player1Char.toUpperCase());
+            // let playerSelection = playerSelection2.replace(playerRest, playerRest.toLowerCase());
             
             //when tied
-            if (playerSelectionFinal === computerSelection){
+            if (playerSelection === computerSelection){
                 return "It's a tie!";
             
             //when player selects rock
-            } else if (playerSelectionFinal === "Rock"){
+            } else if (playerSelection === "Rock"){
                 if (computerSelection === "Scissors"){
                     return "you win!";
                 }
@@ -41,7 +51,7 @@
                 }
                 
             //when player selects paper
-            } else if (playerSelectionFinal === "Paper"){
+            } else if (playerSelection === "Paper"){
                 if (computerSelection === "Rock"){
                     return "you win!";
                 }
@@ -50,7 +60,7 @@
                 }   
 
             //when player selects scissors
-            } else if (playerSelectionFinal === "Scissors"){
+            } else if (playerSelection === "Scissors"){
                 if (computerSelection === "Paper"){
                     return "you win!";
                 }
@@ -60,33 +70,117 @@
             }
         }
 
-        //plays game for 5 rounds
-        for (let i = 0; i < 5; i++){
-            let computerSelection = computerPlay();
-            let playerSelection = window.prompt("what is your weapon");
-            playRound(playerSelection, computerSelection);
 
-            //score keeper
-            if (playRound(playerSelection, computerSelection) === "you win!"){
-                playerScore += 1;
-            } else if (playRound(playerSelection, computerSelection) === "I win!"){
-                compScore += 1;
-            }
-            console.log("I defended your attack with: " + computerSelection);
-            console.log(playRound(playerSelection, computerSelection));
-            console.log( "your score: " + playerScore);
-            console.log( "my score: " + compScore);
-        }
+
+        const buttons = document.querySelectorAll('button');
+
+        buttons.forEach((button =>{
+
         
-        //final result
-        console.log ("Here is the final result of our battles:")
-        if (playerScore > compScore){
-            console.log("you are the ultimate winner! Congratulations");
-        } else if (playerScore < compScore){
-            console.log("I win lol");
-        } else {
-            console.log("its a tie bitch");
-        }
+            button.addEventListener('click',function(e) {
+            let computerSelection = computerPlay();
+            playerSelection = this.innerHTML;
+            let round = playRound(playerSelection, computerSelection);
+
+            const div = document.querySelector('div');
+            const result = document.createElement('div');
+            const defended = document.createElement('div');
+            const playerScoreD = document.createElement('div');
+            const compScoreD = document.createElement('div');
+
+            result.classList.add('result');
+            defended.classList.add('defended');
+            playerScoreD.classList.add('playerScoreD');
+            compScoreD.classList.add('compScoreD');
+
+
+
+            defended.textContent = "I defended with: " + computerSelection;
+            result.textContent = "This is the result: " + round;
+            
+
+
+
+
+            //final result:
+            // console.log ("Here is the  result of our battles:")
+            // if (playerScore > compScore){
+            //     console.log("you are the ultimate winner! Congratulations");
+            // } else if (playerScore < compScore){
+            //     console.log("I win lol");
+            // } else {
+            //     console.log("its a tie bitch");
+            // }
+
+
+            if(round === "It's a tie!"){
+            return;
+            } else if (round === "I win!"){
+            compScore += 1;
+            } else if (round === "you win!"){
+            playerScore += 1;
+            }
+            
+            compScoreD.textContent = "My Score is: " + compScore;
+            playerScoreD.textContent = "Your Score is: " + playerScore;
+
+
+
+            div.appendChild(defended);
+            div.appendChild(result);
+            div.appendChild(compScoreD);
+            div.appendChild(playerScoreD);
+
+
+
+
+
+
+            });
+
+            
+        }));
+    
+        
+        //     if (playRound(playerSelection, computerSelection) === "you win!"){
+        //         playerScore += 1;
+        //     } else if (playRound(playerSelection, computerSelection) === "I win!"){
+        //         compScore += 1;
+        //     }
+        // }
+        // //final result
+        // console.log ("Here is the  result of our battles:")
+        // if (playerScore > compScore){
+        //     console.log("you are the ultimate winner! Congratulations");
+        // } else if (playerScore < compScore){
+        //     console.log("I win lol");
+        // } else {
+        //     console.log("its a tie bitch");
+        // }
+
+
+    
+
+
+        // //plays game for 5 rounds
+        // for (let i = 0; i < 5; i++){
+        //     let computerSelection = computerPlay();
+        //     let playerSelection = window.prompt("what is your weapon");
+        //     playRound(playerSelection, computerSelection);
+
+        //     //score keeper
+        //     if (playRound(playerSelection, computerSelection) === "you win!"){
+        //         playerScore += 1;
+        //     } else if (playRound(playerSelection, computerSelection) === "I win!"){
+        //         compScore += 1;
+        //     }
+        //     console.log("I defended your attack with: " + computerSelection);
+        //     console.log(playRound(playerSelection, computerSelection));
+        //     console.log( "your score: " + playerScore);
+        //     console.log( "my score: " + compScore);
+        // }
+        
+
 
 
 
